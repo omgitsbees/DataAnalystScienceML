@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Sentiment Analysis Dashboard</h1>
+        <form method="POST" class="mt-4">
+            <div class="form-group">
+                <textarea name="text" class="form-control" rows="5" placeholder="Enter text for sentiment analysis"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Analyze Sentiment</button>
+        </form>
+        {% if sentiment_data %}
+        <div class="mt-4">
+            <h3>Analysis Results</h3>
+            <p><strong>Text:</strong> {{ sentiment_data.text }}</p>
+            <p><strong>Polarity:</strong> {{ sentiment_data.polarity }}</p>
+            <p><strong>Subjectivity:</strong> {{ sentiment_data.subjectivity }}</p>
+            {% if sentiment_data.polarity is not none %}
+            <div class="mt-4">
+                <div id="sentiment-graph"></div>
+                <script>
+                    var data = [{
+                        x: ['Polarity', 'Subjectivity'],
+                        y: [{{ sentiment_data.polarity }}, {{ sentiment_data.subjectivity }}],
+                        type: 'bar'
+                    }];
+                    var layout = {
+                        title: 'Sentiment Analysis',
+                        xaxis: { title: 'Sentiment Metrics' },
+                        yaxis: { title: 'Values' }
+                    };
+                    Plotly.newPlot('sentiment-graph', data, layout);
+                </script>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
