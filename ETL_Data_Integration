@@ -1,0 +1,59 @@
+import pandas as pd 
+import requests 
+from sqlalchemy import create_engine
+import plotly.express as px 
+
+# Function to clean data 
+def clean_data(df):
+    # Remove duplicates
+    df = df.drop_duplicates()
+    # Handle missing values
+    df = df.fillna(method='ffill')
+    # Standarize column names
+    df.columns = [col.lower().replace(' ', '_') for col in df.columns]
+    return df 
+
+# Step 1: Data Extraction
+
+# Extract data from a CSV file
+csv_data = pd.read_csv('data/source1.csv')
+
+# Extract data from an API
+response = requests.get('https://api.example.com/data')
+api_data = pd.DataFrame(response.json())
+
+# Extract data from MySQL database
+mysql_engine = create_engine('mysql+pymysql://user:password@localhost/dbname')
+sql_data = pd.read_sql('SELECT * FROM source_table', mysql_engine)
+
+# Step 2: Data Transformation
+
+# Clean the data
+csv_data = clean_data(csv_data)
+api_data = clean_data(api_data)
+sql_data = clean_data(sql_data)
+
+# Merge data from different sources
+merged_data = pd.concat([csv_data, api_data, sql_data], ignore_index=True)
+
+# Additional transformations
+merged_data['date'] = pd.to_datetime(merged_data['date'])
+merged_data['amount'] = merged_data['amount'].astype(float)
+
+# Step 3: Data Loading
+
+# Load data into a PostgreSQL database
+postgres_engine = create_engine('postgresql+psycopg2://user:password@localhost/target_db')
+merged_data.to.sql('integrated_data', postgres_engine, if_exists='replace', index=False)
+
+# Step 3: Data Loading
+
+# Load data into a PostgresSQL database
+postgres_engine = create_engine('postgresql+psycopg2://user:password@localhost/target_db')
+merged_data.to_sql('integrated_data', postgres_engine, if_exists='replace', index=False)
+
+# Step 4: Data Visualization
+
+# Create a visualization using Plotly
+fig = px.line(merged_data, x='date', y='amount', title='Integrated Data Over Time')
+fig.show()
