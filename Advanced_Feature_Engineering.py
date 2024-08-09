@@ -46,7 +46,6 @@ def target_encode(df, feature, target, n_splits=5):
 df['encoded_feature'] = target_encode(df, 'categorical_feature', 'target')
 
 # Feature Hashing
-# Wrap each categorical value in a list to make it iterable
 df['categorical_feature_list'] = df['categorical_feature'].apply(lambda x: [x])
 hasher = FeatureHasher(n_features=10, input_type='string')
 hashed_features = hasher.transform(df['categorical_feature_list'])
@@ -79,7 +78,7 @@ kmeans = KMeans(n_clusters=3)
 df['cluster'] = kmeans.fit_predict(X)
 
 # Fourier Transform Features
-df['fft_feature'] = np.abs(fft(df['feature1']))
+df['fft_feature'] = np.abs(fft(df['feature1'].values))  # Convert Series to NumPy array
 
 # Text Features: TF-IDF
 tfidf = TfidfVectorizer(max_features=10)
