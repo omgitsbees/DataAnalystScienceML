@@ -1,3 +1,52 @@
+# Fraud Detection System
+
+## Overview
+
+This project is a Python-based application designed to detect and visualize fraudulent credit card transactions. It uses a dataset of credit card transactions to identify and display fraudulent entries in both a spreadsheet view and a geographic map. The application allows users to interactively explore the data and visualize fraud locations on a map.
+
+## Features
+
+- **Data Table View**: Display the first 10 entries of the dataset with specific columns.
+- **Fraud Map Visualization**: Show the locations of the first 10 confirmed fraudulent transactions on an interactive map.
+
+## Requirements
+
+- Python 3.7 or higher
+- `pandas`: For data manipulation and analysis
+- `tkinter`: For creating the graphical user interface (GUI)
+- `folium`: For creating interactive maps
+- `webbrowser`: For opening the map in the default web browser
+
+## Installation
+
+1. Clone the repository or download the project files.
+2. Install the required Python packages:
+
+   ```bash
+   pip install pandas folium
+
+Usage
+
+    Load the Dataset: Make sure the dataset file (credit_card_transactions.csv) is available at the specified path in the script.
+
+    Run the Application:
+
+    bash
+
+    python fraud_detection.py
+
+    Interact with the GUI:
+        Show Data Table: Click the "Show Data Table" button to view the first 10 entries of the dataset in a table format.
+        Show Fraud Map: Click the "Show Fraud Map" button to open an interactive map in your web browser, displaying the locations of the first 10 confirmed fraudulent transactions.
+
+Code Description
+
+    fraud_detection.py: The main script that loads the dataset, creates the GUI with tkinter, and provides functionalities for displaying the data table and fraud map.
+        display_table(): Creates and displays a table view of the first 10 entries with selected columns.
+        display_map(): Generates an interactive map with markers for the first 10 confirmed fraud locations and opens it in the web browser.
+
+-----------------------------------------------------------------------------------------------------------------------
+
 Autonomous Electric Bus System for Public Transit
 A Project to Simulate and Visualize an AI-Driven Autonomous Bus System Serving Underrepresented Public Transit Routes
 Table of Contents
