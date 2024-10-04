@@ -135,3 +135,79 @@ Visualization Example
 Here’s an example of the real-time bus location tracking using folium:
 
 The system simulates buses moving on the route while displaying energy consumption, battery level, and traffic status. Data visualizations of performance metrics are updated in real-time as well.
+
+--------------------------------------------------------------------------
+
+Fashion MNIST Generative Adversarial Network (GAN)
+
+This repository contains an implementation of a Generative Adversarial Network (GAN) using PyTorch. The model is trained on the Fashion MNIST dataset to generate new images of fashion items.
+Features
+
+    Generator: A neural network that generates new images from random noise (latent vectors).
+    Discriminator: A neural network that classifies whether an image is real (from the dataset) or fake (generated).
+    Training: The GAN is trained using a combination of adversarial loss for both the generator and discriminator.
+    Data Augmentation: The Fashion MNIST dataset is augmented using random horizontal flips and rotations for more robust training.
+
+Dataset
+
+The model uses the Fashion MNIST dataset, a set of grayscale images (28x28 pixels) representing different clothing items such as shirts, pants, and shoes.
+Installation
+
+    Clone the repository:
+
+    bash
+
+git clone https://github.com/your_username/fashion-mnist-gan.git
+cd fashion-mnist-gan
+
+Install the required Python packages:
+
+bash
+
+    pip install torch torchvision matplotlib numpy
+
+Model Architecture
+Generator
+
+The generator network takes a random noise vector (latent space) as input and outputs a 28x28 grayscale image. It consists of fully connected layers with ReLU activation, batch normalization, and dropout.
+Discriminator
+
+The discriminator network takes a 28x28 image as input and classifies it as either real or fake. It also consists of fully connected layers with ReLU activation, batch normalization, and dropout.
+Training
+
+To train the GAN, run the provided script. It trains the model for 100 epochs and prints the generator and discriminator losses after each epoch.
+
+bash
+
+python gan.py
+
+Results
+
+The model generates a batch of fashion items after training. Below is a sample of generated images after 100 epochs:
+
+Hyperparameters
+
+    Image Size: 784 (28x28)
+    Hidden Size: 256
+    Latent Size: 100
+    Batch Size: 100
+    Number of Epochs: 100
+    Learning Rate: 0.001 (for both generator and discriminator)
+
+Usage
+
+    Training: Train the GAN by running the script. Training progress (discriminator and generator loss) will be printed after each epoch.
+    Sampling: After training, the model will generate 25 samples of fashion items, which will be displayed in a grid.
+
+Example
+
+Here’s how to generate some samples after training:
+
+python
+
+sample_noise = torch.randn((25, latent_size), device=device)
+samples = generator(sample_noise)
+
+License
+
+This project is licensed under the MIT License.
